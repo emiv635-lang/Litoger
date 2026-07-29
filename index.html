@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Litoger — Litografía</title>
+<meta name="description" content="Litoger: litografía e impresión de tarjetas, volantes, plegables, papelería, invitaciones, pendones y más. Cotiza y confirma via WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#084477;
+    --blue:#2F6690;
+    --blue-2:#3E7CA6;
+    --sky:#A9D6E5;
+    --sky-soft:#DCEEF5;
+    --white:#FFFFFF;
+    --mist:#d6d8db;
+    --mist-2:#E2E7EB;
+    --slate:#5B6B79;
+    --slate-soft:#8996A3;
+    --line:#D6DEE4;
+    --whatsapp:#25D366;
+    --whatsapp-dark:#1DA851;
+    --radius:14px;
+    --shadow:0 12px 30px -14px rgba(27,58,87,0.25);
+    --shadow-lg:0 24px 60px -20px rgba(27,58,87,0.32);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;margin:0;padding:0;}
+  button{font-family:inherit;cursor:pointer;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1.5px;background:var(--blue);display:inline-block;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:14px 26px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:15px;
+    border:1.5px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+  }
+  .btn:focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;}
+  .btn-primary{background:var(--ink);color:var(--white);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);}
+  .btn-outline{background:transparent;border-color:var(--line);color:var(--ink);}
+  .btn-outline:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+  .btn-whatsapp{background:var(--whatsapp);color:#fff;}
+  .btn-whatsapp:hover{background:var(--whatsapp-dark);transform:translateY(-2px);box-shadow:0 16px 30px -14px rgba(37,211,102,0.55);}
+  .btn-whatsapp:disabled{background:var(--slate-soft);cursor:not-allowed;transform:none;box-shadow:none;}
+
+  /* registration mark motif */
+  .reg-mark{width:26px;height:26px;color:var(--sky);opacity:.9;}
+  .reg-mark circle,.reg-mark line{vector-effect:non-scaling-stroke;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255, 255, 255, 0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 0;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:21px;
+    letter-spacing:.01em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo-mark{
+    width:64px;height:34px;border-radius:16px;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--sky);
+    flex-shrink:0;
+  }
+  .nav-links{display:flex;align-items:center;gap:34px;}
+  .nav-links a{
+    font-size:14.5px;font-weight:500;color:var(--slate);
+    transition:color .15s ease;
+    position:relative;
+  }
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:14px;}
+  .nav-phone{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;color:var(--slate);
+    display:flex;align-items:center;gap:6px;
+  }
+  .burger{display:none;background:none;border:none;padding:8px;}
+  .burger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;border-radius:2px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(180deg,var(--mist) 0%, var(--white) 78%);
+    padding:76px 0 40px;
+    overflow:hidden;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px,4.6vw,54px);
+    margin:18px 0 20px;
+    letter-spacing:-0.01em;
+  }
+  .hero h1 em{
+    font-style:normal;color:var(--blue);
+  }
+  .hero p.lead{
+    font-size:17.5px;color:var(--slate);line-height:1.6;max-width:46ch;margin-bottom:30px;
+  }
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px;}
+  .hero-tags{display:flex;gap:10px;flex-wrap:wrap;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;color:var(--blue);
+    background:var(--sky-soft);
+    border:1px solid var(--sky);
+    padding:7px 12px;border-radius:8px;
+    display:flex;align-items:center;gap:7px;
+  }
+
+  .hero-visual{position:relative;height:420px;}
+  .sample-card{
+    position:absolute;background:var(--white);
+    border:1px solid var(--line);border-radius:10px;
+    box-shadow:var(--shadow);padding:18px;
+  }
+  .sample-card .reg-mark{position:absolute;top:8px;left:8px;width:16px;height:16px;}
+  .sample-card .reg-mark.br{top:auto;left:auto;bottom:8px;right:8px;}
+  .sc1{width:250px;top:10px;left:20px;transform:rotate(-6deg);z-index:3;}
+  .sc2{width:230px;top:150px;left:150px;transform:rotate(4deg);z-index:2;}
+  .sc3{width:210px;top:270px;left:10px;transform:rotate(-2deg);z-index:1;}
+  .sc-bar{height:8px;border-radius:4px;background:var(--sky);margin-bottom:10px;width:40%;}
+  .sc-line{height:6px;border-radius:3px;background:var(--mist-2);margin-bottom:8px;}
+  .sc-line.w80{width:80%;}
+  .sc-line.w60{width:60%;}
+  .sc-line.w90{width:90%;}
+  .sc-label{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--slate-soft);
+    letter-spacing:.08em;text-transform:uppercase;margin-top:12px;
+  }
+
+  section{padding:88px 0;}
+  .section-head{max-width:640px;margin-bottom:52px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,36px);margin-top:14px;letter-spacing:-0.01em;}
+  .section-head p{color:var(--slate);font-size:16px;margin-top:14px;line-height:1.65;}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--white);}
+  .service-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:20px;
+  }
+  .service-card{
+    position:relative;
+    border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 22px 24px;
+    background:var(--white);
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .service-card:hover{border-color:var(--blue); transform:translateY(-4px); box-shadow:var(--shadow);}
+  .service-card .reg-mark{position:absolute;top:12px;right:12px;width:18px;height:18px;color:var(--mist-2);}
+  .service-icon{
+    width:44px;height:44px;border-radius:10px;
+    background:var(--sky-soft);color:var(--blue);
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;
+  }
+  .service-card h3{font-size:16.5px;margin-bottom:8px;}
+  .service-card p{font-size:13.5px;color:var(--slate);line-height:1.55;}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--mist);}
+  .process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
+  .step{position:relative;padding-left:0;}
+  .step-num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:14px;color:var(--white);background:var(--ink);
+    width:32px;height:32px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:18px;
+  }
+  .step h3{font-size:18px;margin-bottom:10px;}
+  .step p{color:var(--slate);font-size:14.5px;line-height:1.6;}
+  .step-connector{
+    position:absolute;top:16px;left:calc(100% - 6px);width:calc(28px*1.0);
+    height:1px;background:repeating-linear-gradient(90deg,var(--slate-soft) 0 6px, transparent 6px 12px);
+    display:none;
+  }
+  @media (min-width:860px){
+    .process-grid .step:not(:last-child) .step-connector{display:block;}
+  }
+
+  /* ---------- ORDER (ticket) ---------- */
+  .order{background:var(--white);}
+  .order-layout{
+    display:grid;grid-template-columns:1.3fr .9fr;gap:36px;align-items:start;
+  }
+  .ticket{
+    background:var(--white);
+    border:1.5px solid var(--ink);
+    border-radius:16px;
+    position:relative;
+    box-shadow:var(--shadow-lg);
+    overflow:hidden;
+  }
+  .ticket-perf{
+    height:22px;
+    background:var(--white);
+    background-image:radial-gradient(circle at center, var(--white) 6px, transparent 6.5px);
+    background-size:24px 24px;
+    background-position:center;
+    position:relative;
+  }
+  .ticket-perf::before{
+    content:"";position:absolute;inset:0;
+    background-image:radial-gradient(circle at center, transparent 7px, var(--ink) 7px 8px, transparent 8.5px);
+    background-size:24px 24px;background-position:center;
+    opacity:.12;
+  }
+  .ticket-head{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    padding:22px 30px 18px;border-bottom:1px dashed var(--line);
+  }
+  .ticket-head .th-title{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--slate);text-transform:uppercase;}
+  .ticket-head h3{font-size:21px;margin-top:6px;}
+  .ticket-id{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--blue);
+    background:var(--sky-soft);border:1px solid var(--sky);padding:6px 10px;border-radius:6px;
+  }
+  .ticket-body{padding:26px 30px 30px;}
+
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    letter-spacing:.08em;text-transform:uppercase;color:var(--slate);margin-bottom:8px;
+  }
+  .field input[type="text"],
+  .field input[type="tel"],
+  .field input[type="number"],
+  .field select,
+  .field textarea{
+    width:100%;
+    border:1.5px solid var(--line);
+    border-radius:9px;
+    padding:12px 14px;
+    font-size:14.5px;
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    background:var(--white);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field textarea{resize:vertical;min-height:90px;}
+  .field input:focus,.field select:focus,.field textarea:focus{
+    outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--sky-soft);
+  }
+  .qty-presets{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;}
+  .qty-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;
+    border:1.5px solid var(--line);background:var(--white);color:var(--slate);
+    padding:7px 12px;border-radius:7px;transition:all .15s ease;
+  }
+  .qty-chip:hover{border-color:var(--blue);color:var(--blue);}
+  .qty-chip.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;}
+  .check-item{
+    display:flex;align-items:center;gap:9px;
+    border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;
+    font-size:13.5px;color:var(--ink);cursor:pointer;transition:border-color .15s ease, background .15s ease;
+  }
+  .check-item:hover{border-color:var(--blue);}
+  .check-item input{accent-color:var(--ink);width:16px;height:16px;flex-shrink:0;}
+
+  .radio-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;}
+  .radio-item{
+    display:flex;align-items:center;gap:8px;
+    border:1.5px solid var(--line);border-radius:9px;padding:10px 14px;
+    font-size:13.5px;cursor:pointer;transition:border-color .15s ease;
+  }
+  .radio-item:hover{border-color:var(--blue);}
+  .radio-item input{accent-color:var(--ink);}
+
+  .custom-size{display:none;margin-top:10px;}
+  .custom-size.show{display:block;}
+
+  .ticket-footer{
+    border-top:1px dashed var(--line);
+    padding:22px 30px 26px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .ticket-footer .note{font-size:12.5px;color:var(--slate-soft);max-width:36ch;}
+
+  /* live preview */
+  .preview{
+    position:sticky;top:100px;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    background:var(--mist);
+    padding:26px;
+  }
+  .preview-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+  .preview-head .eyebrow{margin:0;}
+  .preview-list{display:flex;flex-direction:column;gap:0;}
+  .preview-row{
+    display:flex;justify-content:space-between;gap:12px;
+    padding:11px 0;border-bottom:1px dashed var(--line);
+    font-size:13.5px;
+  }
+  .preview-row:last-child{border-bottom:none;}
+  .preview-row .k{color:var(--slate);}
+  .preview-row .v{color:var(--ink);font-weight:600;text-align:right;}
+  .preview-empty{color:var(--slate-soft);font-size:13px;padding:8px 0;}
+  .preview-total-hint{
+    margin-top:16px;padding-top:16px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--slate);line-height:1.6;
+  }
+
+  .form-status{
+    margin-top:14px;font-size:13.5px;padding:12px 14px;border-radius:9px;
+    display:none;align-items:center;gap:8px;
+  }
+  .form-status.show{display:flex;}
+  .form-status.error{background:#FBEAEA;color:#8A2E2E;border:1px solid #E7C4C4;}
+  .form-status.ok{background:#E9F9EF;color:#1F6B3B;border:1px solid #BFE6CC;}
+
+  /* ---------- POLITICAS ---------- */
+  .politicas-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:10px;}
+  .politica-card{
+    position:relative;
+    border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+    background:var(--white);box-shadow:var(--shadow);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .politica-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg);}
+  .politica-card.full{grid-column:1 / -1;}
+  .politica-card::after{
+    content:"";position:absolute;top:14px;right:14px;width:20px;height:20px;
+    border:1.5px solid var(--mist-2);border-radius:50%;
+  }
+  .politica-card::before{
+    content:"";position:absolute;top:22px;right:22px;width:4px;height:4px;
+    background:var(--mist-2);border-radius:50%;
+  }
+  .politica-head{display:flex;align-items:center;gap:14px;padding:18px 24px;position:relative;overflow:hidden;}
+  .politica-head::after{
+    content:"";position:absolute;right:-20px;top:-20px;width:90px;height:90px;
+    background:rgba(255,255,255,0.12);border-radius:50%;
+  }
+  .politica-head .arrow-badge{
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(255,255,255,0.22);
+    border:1.5px solid rgba(255,255,255,0.65);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    position:relative;z-index:1;
+  }
+  .politica-head h3{color:#fff;font-size:19px;letter-spacing:.01em;position:relative;z-index:1;}
+  .politica-head.calidad{background:linear-gradient(100deg,#E8712B,#D4272C);}
+  .politica-head.ambiente{background:linear-gradient(100deg,#5C4B9E,#352C6B);}
+  .politica-head.material{background:linear-gradient(100deg,#3FA13B,#8CC63F);}
+  .politica-body{padding:22px 26px 28px;}
+  .politica-body p{color:var(--slate);font-size:14.5px;line-height:1.7;}
+
+  .material-lists{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;margin-top:4px;}
+  .material-lists ul{display:flex;flex-direction:column;gap:10px;}
+  .material-lists li{display:flex;align-items:flex-start;gap:9px;font-size:14px;color:var(--ink);line-height:1.4;}
+  .material-lists li svg{flex-shrink:0;margin-top:3px;color:var(--blue);}
+  .material-lists li.destacado{font-weight:700;}
+
+  .sellos-wrap{border:1px dashed var(--sky);background:var(--sky-soft);}
+  .sellos-title{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--blue);text-align:center;
+    padding:22px 24px 0;
+  }
+  .sellos-row{
+    display:flex;justify-content:center;align-items:flex-start;gap:36px;flex-wrap:wrap;
+    padding:18px 24px 28px;
+  }
+  .sello{display:flex;flex-direction:column;align-items:center;gap:10px;width:130px;text-align:center;}
+  .sello-circle{
+    width:84px;height:84px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    border:3px solid;font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:10px;line-height:1.25;padding:6px;background:var(--white);
+    box-shadow:var(--shadow);transition:transform .2s ease;
+  }
+  .sello:hover .sello-circle{transform:translateY(-3px) scale(1.03);}
+  .sello span{font-size:11.5px;color:var(--slate);line-height:1.4;}
+
+  @media (max-width:860px){
+    .politicas-grid{grid-template-columns:1fr;}
+    .material-lists{grid-template-columns:1fr;}
+  }
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  .contact{background:var(--ink);color:var(--white);}
+  .contact .section-head h2,.contact .section-head p{color:var(--white);}
+  .contact .section-head p{color:var(--sky);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px;margin-top:10px;}
+  .contact-card{
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.14);
+    border-radius:var(--radius);
+    padding:24px;
+  }
+  .contact-card h3{color:var(--white);font-size:16px;margin-bottom:10px;}
+  .contact-card p{color:var(--sky);font-size:14px;line-height:1.6;}
+  .contact-card .btn{margin-top:16px;width:100%;}
+
+  footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.12);padding:26px 0;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;color:var(--sky);font-size:13px;flex-wrap:wrap;gap:10px;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:980px){
+    .service-grid{grid-template-columns:repeat(2,1fr);}
+    .process-grid{grid-template-columns:1fr;gap:34px;}
+    .order-layout{grid-template-columns:1fr;}
+    .preview{position:static;}
+    .contact-grid{grid-template-columns:1fr;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{height:340px;margin-top:20px;}
+  }
+  @media (max-width:680px){
+    .nav-links,.nav-phone{display:none;}
+    .burger{display:block;}
+    .nav.open .nav-links{
+      display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;
+      background:var(--white);border-bottom:1px solid var(--line);padding:18px 24px;gap:16px;
+    }
+    .service-grid{grid-template-columns:1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .check-grid{grid-template-columns:1fr;}
+    .ticket-body{padding:22px 18px 26px;}
+    .ticket-head,.ticket-footer{padding-left:18px;padding-right:18px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav" id="nav">
+    <a href="#top" class="logo">
+      <span class="logo-mark">
+       <img src="imagenes/logo.png" alt="">
+      </span>
+      LITOGER S.A.S
+    </a>
+    <nav class="nav-links">
+      <a href="#quienes-somos">Quienes Somos</a>
+      <a href="#politicas">Politcas</a>
+      <a href="#proceso">Cómo pedimos</a>
+      <a href="#pedido">Solicita tu Cotización</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <div class="nav-cta">
+      <span class="nav-phone">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5a2 2 0 0 1 2-2h3l2 5-2 1a11 11 0 0 0 5 5l1-2 5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5Z"/></svg>
+        314 7972300
+      </span>
+      <a href="#pedido" class="btn btn-primary" style="padding:11px 20px;font-size:13.5px;">Iniciar Cotización</a>
+      <button class="burger" aria-label="Abrir menú" onclick="document.getElementById('nav').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="padding-top:76px;">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow">Litografía &amp; Impresiones Desde 1994 </span>
+        <h1>Cada trabajo sale de <em>prensa</em>, listo para tu marca.</h1>
+        <p class="lead">En Litoger imprimimos tarjetas, papelería, publicidad y empaques con control de calidad en cada tiraje. Cotiza en línea y confírmalo por WhatsApp en minutos.</p>
+        <div class="hero-actions">
+          <a href="#pedido" class="btn btn-primary">Solicita tu Cotización</a>
+          <a href="#servicios" class="btn btn-outline">Sobre Litoger S.A.S</a>
+        </div>
+        <div class="hero-tags">
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg>
+            +31 años
+          </span>
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            Entrega Rapida
+          </span>
+          <span class="tag">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>
+            Cotización por WhatsApp
+          </span>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="sample-card sc1">
+          <svg class="reg-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="1.6" fill="none"/><line x1="20" y1="2" x2="20" y2="38" stroke="currentColor" stroke-width="1.1"/><line x1="2" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1.1"/></svg>
+          <svg class="reg-mark br" viewBox="0 0 40 40"><circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="1.6" fill="none"/><line x1="20" y1="2" x2="20" y2="38" stroke="currentColor" stroke-width="1.1"/><line x1="2" y1="20" x2="38" y2="20" stroke="currentColor" stroke-width="1.1"/></svg>
+          <div class="sc-bar"></div>
+          <div class="sc-line w80"></div>
+          <div class="sc-line w60"></div>
+          <div class="sc-label">Tarjeta · Propalcote 300g</div>
+        </div>
+        <div class="sample-card sc2">
+          <div class="sc-bar" style="width:60%;"></div>
+          <div class="sc-line w90"></div>
+          <div class="sc-line w80"></div>
+          <div class="sc-line w60"></div>
+          <div class="sc-label">Plegable · Laminado mate</div>
+        </div>
+        <div class="sample-card sc3">
+          <div class="sc-bar" style="width:30%;"></div>
+          <div class="sc-line w60"></div>
+          <div class="sc-label">Sticker · Troquelado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ¿Quienes Somos? -->
+  <section id="quienes-somos" class="quienes-somos">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">¿Quienes Somos?</span>
+        <h2>Litoger S.A.S más de 31 años de experiencia</h2>
+        <p>Empresa familiar fundada en 1994 en Pereira Risaralda, 31 años de experiencia en las artes graficas. </p>
+      </div>
+
+      <head> <meta charset="UTF-8"> <link rel="stylesheet" href="estilos.css"> <div class="service-card">
+        <div class="texto">
+          <p class="texto">Litoger S.A.S. es una empresa con más de 31 años de experiencia en el medio de impresión Offset de alta calidad; es por ese motivo que la multinacional Francesa COFACE expertos sin riesgos empresariales, nos han certificado como una empresa idónea para establecer relaciones comerciales a largo plazo.</p>
+          <p class="texto">Nuestros prensistas cuentan con una amplia experiencia de 25 años en el medio; también estamos apoyados por diseñadores gráficos especializados en el área de diseño, mercadeo y publicidad, con énfasis en la finalización y diagramación de todo tipo de piezas publicitarias y editoriales.</p>
+          <p>Desde el inicio de la empresa, hemos consolidado nuestras relaciones comerciales con los clientes; debido al cumplimiento, la calidad y excelente servicio, lo cual nos ha ubicado como líderes en la región.</p>
+        </div>
+        <div class="imagen">
+          <img src="imagenes/quienes somos lito.png" alt="Litoger">
+        </div> 
+      </head>
+       
+      </div>
+    </div>
+  </section>
+
+
+
+  <!--Politicas-->
+  <section id="politicas" class="politicas">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Políticas</span>
+        <h2>Compromiso con la calidad, el ambiente y tu proyecto</h2>
+        <p>Estos son los principios que guían cada pedido que sale de nuestra planta en Pereira.</p>
+      </div>
+
+      <div class="politicas-grid">
+
+        <!-- Política de Calidad -->
+        <div class="politica-card">
+          <div class="politica-head calidad">
+            <span class="arrow-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+            <h3>Política de Calidad</h3>
+          </div>
+          <div class="politica-body">
+            <p>Litoger S.A.S. se compromete con sus clientes a suministrar soluciones de impresión, con una variedad de productos de alta calidad que cumplen con sus necesidades, requisitos y expectativas; para ello contamos con talento humano bien capacitado, maquinaria de alta tecnología, sistemas de mejoramiento continuo y un contacto constante, claro y eficaz con nuestros clientes.</p>
+          </div>
+        </div>
+
+        <!-- Compromiso Medio Ambiente -->
+        <div class="politica-card">
+          <div class="politica-head ambiente">
+            <span class="arrow-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+            <h3>Compromiso Medio Ambiente</h3>
+          </div>
+          <div class="politica-body">
+            <p>Nuestro compromiso con el planeta es fundamental para nuestro crecimiento, por lo que el cuidado del medio donde vivimos es una responsabilidad incondicional de todos; es por eso que ofrecemos en nuestro portafolio de servicios insumos biodegradables, orgánicos y reciclables de gran calidad; también nuestros vertimientos son controlados y entregados a empresas certificadas en la disposición de residuos.</p>
+          </div>
+        </div>
+
+        <!-- Material de Impresión -->
+        <div class="politica-card full">
+          <div class="politica-head material">
+            <span class="arrow-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+            <h3>Material de Impresión</h3>
+          </div>
+          <div class="politica-body">
+            <div class="material-lists">
+              <ul>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Revistas</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Libros</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Catálogos</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Plegables</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Tarjetas de presentación</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Hojas Membrete</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Talonarios</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Sobres</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Carpetas</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Etiquetas</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Afiches</li>
+              </ul>
+              <ul>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Adhesivos</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Volantes</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Cajas Plegadizas</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Calendarios</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Banderines</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Pendones</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Vinilos</li>
+                <li><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Sellos de Caucho</li>
+                <li class="destacado"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Y todo lo relacionado en impresión en papel</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sellos / certificaciones -->
+        <div class="politica-card full sellos-wrap">
+          <div class="sellos-title">Certificaciones y sellos de compromiso</div>
+          <div class="sellos-row">
+            <div class="sello">
+              <div class="sello-circle" style="border-color:#2E7D32;color:#2E7D32;">100%<br>AMBIENTAL</div>
+              <span>Papel elaborado 100% con caña de azucar</span>
+            </div>
+            <div class="sello">
+              <div class="sello-circle" style="border-color:#1B5E20;color:#1B5E20;">100% ACEITE<br>VEGETAL</div>
+              <span>Tintas a base de aceite vegetal</span>
+            </div>
+            <div class="sello">
+              <div class="sello-circle" style="border-color:#B71C1C;color:#B71C1C;">IMPRESO CON<br>TINTA DE SOYA</div>
+              <span>Insumos amigables con el ambiente</span>
+            </div>
+            <div class="sello">
+              <div class="sello-circle" style="border-color:#0D47A1;color:#0D47A1;">EMDEPSA</div>
+              <span>Disposición certificada de residuos</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- PROCESS -->
+  <section id="proceso" class="process">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Cómo funciona</span>
+        <h2>De tu idea a tu pedido confirmado, en tres pasos.</h2>
+      </div>
+      <div class="process-grid">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Inicia tu cotización</h3>
+          <p>Elige producto, cantidad, papel y acabados en el formulario. Verás un resumen en vivo, como una orden de trabajo real.</p>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Confirmamos por WhatsApp</h3>
+          <p>Enviamos tu resumen a nuestro WhatsApp. Un asesor revisa detalles, valores y tiempo de entrega contigo.</p>
+          <div class="step-connector"></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Producción y entrega</h3>
+          <p>Una vez confirmado el diseño y el pago, entramos a prensa. Te avisamos cuando tu pedido esté listo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDER FORM -->
+  <section id="pedido" class="order">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Orden de trabajo</span>
+        <h2>Solicita tu Cotización</h2>
+        <p>Completa los datos de tu trabajo. Al enviar, se abre WhatsApp con el resumen listo para confirmar con nuestro equipo.</p>
+      </div>
+
+      <div class="order-layout">
+        <form class="ticket" id="orderForm" novalidate>
+          <div class="ticket-perf"></div>
+          <div class="ticket-head">
+            <div>
+              <div class="th-title">Litoger · Orden de trabajo</div>
+              <h3>Ficha de pedido</h3>
+            </div>
+            <span class="ticket-id" id="ticketId">OT-000</span>
+          </div>
+
+          <div class="ticket-body">
+
+            <div class="field-row">
+              <div class="field">
+                <label for="producto">Producto</label>
+                <select id="producto" required>
+                  <option value="" disabled selected>Selecciona un producto</option>
+                  <option>Tarjetas de presentación</option>
+                  <option>Volantes</option>
+                  <option>Plegables</option>
+                  <option>Papelería membretada</option>
+                  <option>Invitaciones</option>
+                  <option>Calendarios</option>
+                  <option>Stickers</option>
+                  <option>Afiches</option>
+                  <option>Empaques</option>
+                  <option>Otro (lo describo en notas)</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="tamano">Tamaño</label>
+                <select id="tamano" required>
+                  <option value="" disabled selected>Selecciona un tamaño</option>
+                  <option>Media carta</option>
+                  <option>Carta</option>
+                  
+                  <option value="Personalizado">Personalizado</option>
+                </select>
+                <div class="custom-size" id="customSizeWrap">
+                  <input type="text" id="customSize" placeholder="Ej: 9 x 5 cm">
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="cantidad">Cantidad</label>
+              <input type="number" id="cantidad" min="1" placeholder="Ej: 1000" required>
+              <div class="qty-presets" id="qtyPresets">
+                <button type="button" class="qty-chip" data-qty="1000">1.000</button>
+                <button type="button" class="qty-chip" data-qty="2500">2500</button>
+                <button type="button" class="qty-chip" data-qty="5000">5000</button>
+                <button type="button" class="qty-chip" data-qty="7000">7.000</button>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="papel">Tipo de papel</label>
+                <select id="papel">
+                  <option value="" disabled selected>Selecciona el papel</option>
+                  <option>Propalcote 150g</option>
+                  <option>Propalcote 250g</option>
+                  <option>Bond 75g</option>
+                  <option>Cartulina Bristol</option>
+                  <option>Vinilo adhesivo</option>
+                  <option>Couché</option>
+                  <option>No estoy seguro, me asesoran</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Colores de impresión</label>
+                <div class="radio-row">
+                  <label class="radio-item"><input type="radio" name="color" value="Full color (CMYK)" checked>Full color</label>
+                  <label class="radio-item"><input type="radio" name="color" value="Un solo color">Un color</label>
+                  <label class="radio-item"><input type="radio" name="color" value="Blanco y negro">B/N</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Acabados (opcional)</label>
+              <div class="check-grid" id="acabados">
+                <label class="check-item"><input type="checkbox" value="Laminado mate">Laminado mate</label>
+                <label class="check-item"><input type="checkbox" value="Laminado brillante">Laminado brillante</label>
+                <label class="check-item"><input type="checkbox" value="Troquelado">Troquelado</label>
+                <label class="check-item"><input type="checkbox" value="UV selectivo">UV selectivo</label>
+                <label class="check-item"><input type="checkbox" value="Numerado">Numerado</label>
+                <label class="check-item"><input type="checkbox" value="Esquinas redondeadas">Esquinas redondeadas</label>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="notas">Notas o detalles del diseño</label>
+              <textarea id="notas" placeholder="Ej: ya tengo el diseño en PDF, o necesito que me ayuden a diagramarlo..."></textarea>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" placeholder="Tu nombre" required>
+              </div>
+              <div class="field">
+                <label for="telefono">Teléfono / WhatsApp</label>
+                <input type="tel" id="telefono" placeholder="300 000 0000" required>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="ciudad">Ciudad (opcional)</label>
+              <input type="text" id="ciudad" placeholder="Ej: Pereira">
+            </div>
+
+          </div>
+
+          <div class="ticket-footer">
+            <p class="note">Al enviar, abrimos WhatsApp con este resumen para que lo confirmes con nuestro equipo. No se realiza ningún cobro aquí.</p>
+            <button type="submit" class="btn btn-whatsapp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.33 4.95L2 22l5.28-1.38a9.9 9.9 0 0 0 4.76 1.21h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.06c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.8-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.79-4.17-4.94-4.36-.15-.2-1.18-1.57-1.18-3 0-1.42.75-2.12 1.02-2.41.27-.29.58-.36.78-.36.2 0 .39 0 .56.01.18.01.42-.07.65.5.24.58.82 2 .89 2.15.07.15.11.32.02.51-.09.2-.13.32-.27.49-.13.17-.28.37-.4.5-.13.13-.27.28-.12.55.15.27.68 1.13 1.47 1.83 1.01.9 1.87 1.18 2.13 1.31.27.13.42.11.58-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.53.72 1.79.85.27.13.45.2.51.31.07.11.07.63-.17 1.31Z"/></svg>
+               Confirma tu cotización
+            </button>
+          </div>
+
+          <div class="form-status" id="formStatus" role="status"></div>
+        </form>
+
+        <aside class="preview" aria-live="polite">
+          <div class="preview-head">
+            <span class="eyebrow">Resumen en vivo</span>
+          </div>
+          <div class="preview-list" id="previewList">
+            <p class="preview-empty">Completa el formulario y aquí verás el resumen de tu pedido.</p>
+          </div>
+          <div class="preview-total-hint">
+            Este resumen se envía tal cual a WhatsApp. Nuestro equipo te confirma valor exacto y fecha de entrega según especificaciones finales.
+          </div>
+        </aside>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto" class="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Contacto</span>
+        <h2>Hablemos de tu próximo trabajo de impresión.</h2>
+        <p>Escríbenos, visítanos o arma tu pedido en línea. Estamos para asesorarte en cada tiraje.</p>
+      </div>
+      <div class="contact-head">
+        <img src="" alt="">
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>WhatsApp</h3>
+          <p>Respuesta rápida para cotizaciones y confirmación de pedidos.</p>
+          <a class="btn btn-whatsapp" href="https://wa.me/573147972300" target="_blank" rel="noopener">Escribir ahora</a>
+        </div>
+        <div class="contact-card">
+          <h3>Punto de atención</h3>
+          <p><br> Cr5 27-23
+Pereira, Risaralda– <br> </p>
+        </div>
+        <div class="contact-card">
+          <h3>Correo</h3>
+          <p>pedidos@litogersas.com<br>Para cotizaciones grandes o licitaciones.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© <span id="year"></span> litogerSAS. Todos los derechos reservados.</span>
+    <span>Litografía e impresión · Pereira, Colombia</span>
+  </div>
+
+</footer>
+<footer>
+  <div class="wrap footer-row">
+    
+  <span> Pagina creada por Emiliano Vega</span>
+  <span> Cotiza la creacion de tu pagina web al: 324 6503846</span>
+
+  </div>
+
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  
+  const WHATSAPP_NUMBER = "573147972300";
+
+  const form = document.getElementById('orderForm');
+  const previewList = document.getElementById('previewList');
+  const statusBox = document.getElementById('formStatus');
+  const ticketId = document.getElementById('ticketId');
+
+  ticketId.textContent = 'OT-' + Math.floor(1000 + Math.random() * 8999);
+
+  // custom size toggle
+  const tamanoSel = document.getElementById('tamano');
+  const customWrap = document.getElementById('customSizeWrap');
+  tamanoSel.addEventListener('change', () => {
+    customWrap.classList.toggle('show', tamanoSel.value === 'Personalizado');
+    updatePreview();
+  });
+
+  // quantity presets
+  document.querySelectorAll('.qty-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.qty-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      document.getElementById('cantidad').value = chip.dataset.qty;
+      updatePreview();
+    });
+  });
+
+  function getFormData(){
+    const producto = document.getElementById('producto').value;
+    const tamano = tamanoSel.value === 'Personalizado'
+      ? (document.getElementById('customSize').value || 'Personalizado (sin especificar)')
+      : tamanoSel.value;
+    const cantidad = document.getElementById('cantidad').value;
+    const papel = document.getElementById('papel').value;
+    const color = document.querySelector('input[name="color"]:checked')?.value || '';
+    const acabados = Array.from(document.querySelectorAll('#acabados input:checked')).map(i => i.value);
+    const notas = document.getElementById('notas').value.trim();
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const ciudad = document.getElementById('ciudad').value.trim();
+    return { producto, tamano, cantidad, papel, color, acabados, notas, nombre, telefono, ciudad };
+  }
+
+  function updatePreview(){
+    const d = getFormData();
+    const rows = [];
+    if (d.producto) rows.push(['Producto', d.producto]);
+    if (d.cantidad) rows.push(['Cantidad', d.cantidad]);
+    if (d.tamano) rows.push(['Tamaño', d.tamano]);
+    if (d.papel) rows.push(['Papel', d.papel]);
+    if (d.color) rows.push(['Color', d.color]);
+    if (d.acabados.length) rows.push(['Acabados', d.acabados.join(', ')]);
+    if (d.nombre) rows.push(['Nombre', d.nombre]);
+    if (d.telefono) rows.push(['Teléfono', d.telefono]);
+    if (d.ciudad) rows.push(['Ciudad', d.ciudad]);
+
+    if (!rows.length){
+      previewList.innerHTML = '<p class="preview-empty">Completa el formulario y aquí verás el resumen de tu pedido.</p>';
+      return;
+    }
+    previewList.innerHTML = rows.map(([k,v]) =>
+      `<div class="preview-row"><span class="k">${k}</span><span class="v">${v}</span></div>`
+    ).join('');
+  }
+
+  form.addEventListener('input', updatePreview);
+  form.addEventListener('change', updatePreview);
+  updatePreview();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = getFormData();
+
+    if (!d.producto || !d.tamano || !d.cantidad || !d.nombre || !d.telefono){
+      statusBox.textContent = 'Completa producto, tamaño, cantidad, nombre y teléfono para continuar.';
+      statusBox.className = 'form-status show error';
+      return;
+    }
+
+    const lines = [
+      `Hola Litoger, quiero hacer una cotizacion (${ticketId.textContent}):`,
+      `• Producto: ${d.producto}`,
+      `• Cantidad: ${d.cantidad}`,
+      `• Tamaño: ${d.tamano}`,
+      d.papel ? `• Papel: ${d.papel}` : null,
+      `• Color: ${d.color}`,
+      d.acabados.length ? `• Acabados: ${d.acabados.join(', ')}` : null,
+      d.notas ? `• Notas: ${d.notas}` : null,
+      `• Nombre: ${d.nombre}`,
+      `• Teléfono: ${d.telefono}`,
+      d.ciudad ? `• Ciudad: ${d.ciudad}` : null,
+    ].filter(Boolean).join('\n');
+
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`;
+
+    statusBox.textContent = '¡Listo! Te llevamos a WhatsApp para confirmar tu pedido...';
+    statusBox.className = 'form-status show ok';
+
+    window.open(url, '_blank', 'noopener');
+  });
+</script>
+
+
+
+
+</body>
+</html>
